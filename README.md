@@ -10,7 +10,7 @@ ___
  - O progrma deve permitir o cadastro de ingredientes contendo, nome do produto/ingrediente, data de validade, quantidade (em gramas)
  - O programa deve analisar o menu para que se algum alimento estiver para vencer nos próximos 3 dias deve aparecer um alerta
  - Quando um pedido for registrado (definido como 'Prato Feito') deve ser retirado do estoque automaticamente:
-    - 200g de Arooz
+    - 200g de Arroz
     - 100g de Feijão
 - E o progrma deve proibir vendas se algum item faltar
 
