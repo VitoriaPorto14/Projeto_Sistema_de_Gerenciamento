@@ -58,3 +58,7 @@ while True:
             qtd = estoque[produto]["quantidade"]
             val = estoque[produto]["validade"].strftime("%d/%m/%Y")
             print(f"• {produto.capitalize()}: {qtd}g | Validade: {val}")
+
+
+
+print("hello world")
