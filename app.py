@@ -1,0 +1,60 @@
+from datetime import datetime, timedelta
+
+# --- 1. BANCO DE DADOS EM MEMÓRIA (Dicionários básicos) ---
+# Quantidades em gramas. Validades configuradas para o ano de 2026.
+estoque = {
+    "arroz": {"quantidade": 1000, "validade": datetime.strptime("2026-06-15", "%Y-%m-%d")},
+    "feijao": {"quantidade": 500, "validade": datetime.strptime("2026-05-29", "%Y-%m-%d")}, # Vence em breve
+    "carne": {"quantidade": 2000, "validade": datetime.strptime("2026-06-10", "%Y-%m-%d")}
+}
+
+# Receita fixa do Prato Feito
+ingredientes_pf = {
+    "arroz": 200,
+    "feijao": 100
+}
+
+# --- 2. LOOP PRINCIPAL DO PROGRAMA (Menu no Terminal) ---
+while True:
+    print("\n=========================================")
+    print("        STOCKFLOW - MENU PRINCIPAL       ")
+    print("=========================================")
+
+    # --- REQUISITO: ALERTAS DE VALIDADE EM DESTAQUE ---
+    hoje = datetime.today()
+    limite_alerta = hoje + timedelta(days=3)
+
+    print("\n  SISTEMA DE ALERTAS DE VALIDADE:")
+    tem_alerta = False
+
+    for produto in estoque:
+        data_val = estoque[produto]["validade"]
+
+        # Se a data de hoje for maior ou igual à validade -> Vencido
+        if hoje.date() >= data_val.date():
+            print(f"   PRODUTO VENCIDO: {produto.upper()} (Venceu em: {data_val.strftime('%d/%m/%Y')})")
+            tem_alerta = True
+        # Se vencer nos próximos 3 dias -> Alerta de vencimento próximo
+        elif hoje.date() < data_val.date() <= limite_alerta.date():
+            print(f"   VENCIMENTO PRÓXIMO (menos de 3 dias): {produto.upper()} (Vence em: {data_val.strftime('%d/%m/%Y')})")
+            tem_alerta = True
+
+    if not tem_alerta:
+        print("   Todos os produtos estão com a validade em dia.")
+
+    print("-----------------------------------------")
+    print("1 - Visualizar Estoque Atual")
+    print("2 - Cadastrar / Atualizar Ingrediente")
+    print("3 - Vender 'Prato Feito' (Baixa Automática)")
+    print("4 - Sair do Sistema")
+    print("=========================================")
+
+    opcao = input("Escolha uma opção (1-4): ")
+
+    # --- OPÇÃO 1: VISUALIZAR ESTOQUE ---
+    if opcao == "1":
+        print("\n--- ESTOQUE ATUAL ---")
+        for produto in estoque:
+            qtd = estoque[produto]["quantidade"]
+            val = estoque[produto]["validade"].strftime("%d/%m/%Y")
+            print(f"• {produto.capitalize()}: {qtd}g | Validade: {val}")
