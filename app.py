@@ -3,9 +3,9 @@ from datetime import datetime, timedelta
 # --- 1. BANCO DE DADOS EM MEMÓRIA (Dicionários básicos) ---
 # Quantidades em gramas. Validades configuradas para o ano de 2026.
 estoque = {
-    "arroz": {"quantidade": 1000, "validade": datetime.strptime("2026-06-15", "%Y-%m-%d")},
-    "feijao": {"quantidade": 500, "validade": datetime.strptime("2026-05-29", "%Y-%m-%d")}, # Vence em breve
-    "carne": {"quantidade": 2000, "validade": datetime.strptime("2026-06-10", "%Y-%m-%d")}
+    "arroz": {"quantidade": 1000, "validade": datetime.strptime("2026-06-16", "%Y-%m-%d")},
+    "feijao": {"quantidade": 500, "validade": datetime.strptime("2026-06-16", "%Y-%m-%d")}, # Vence em breve
+    "carne": {"quantidade": 2000, "validade": datetime.strptime("2026-06-16", "%Y-%m-%d")}
 }
 
 # Receita fixa do Prato Feito
@@ -24,7 +24,7 @@ while True:
     hoje = datetime.today()
     limite_alerta = hoje + timedelta(days=3)
 
-    print("\n  SISTEMA DE ALERTAS DE VALIDADE:")
+    print("\n      SISTEMA DE ALERTAS DE VALIDADE:")
     tem_alerta = False
 
     for produto in estoque:
@@ -40,7 +40,7 @@ while True:
             tem_alerta = True
 
     if not tem_alerta:
-        print("   Todos os produtos estão com a validade em dia.")
+        print("Todos os produtos estão com a validade em dia.")
 
     print("-----------------------------------------")
     print("1 - Visualizar Estoque Atual")
@@ -53,6 +53,7 @@ while True:
 
     # --- OPÇÃO 1: VISUALIZAR ESTOQUE ---
     if opcao == "1":
+        print("\n↓=↓=↓=↓=↓=↓=↓=↓=↓=↓=↓=↓=↓=↓=↓=↓=↓=↓=↓=↓=↓")
         print("\n--- ESTOQUE ATUAL ---")
         for produto in estoque:
             qtd = estoque[produto]["quantidade"]
@@ -60,5 +61,69 @@ while True:
             print(f"• {produto.capitalize()}: {qtd}g | Validade: {val}")
 
 
+    #Opçao 2: cadastrar/ e atualizar produtos GAzolA AQUI
+    if opcao == "2":
+        print("\n--- CADASTRO / ATUALIZAÇÂO DE ITEM ---")
+        novo_item = input("Nome do novo ingrediente: ").strip().lower()
+        try:
+            qtd_input = int(input("Quantidade (em gramas): "))
+            if qtd_input < 0:
+                print("Error: A quantidade não pode ser negativa!")
+                continue
+        except ValueError:
+            print("Error: Digite um número inteiro válido para a quantidade.")
+            continue
 
-print("hello world")
+        data_input = input("Data de validade (AAAA-MM-DD): ").strip()
+        try:
+            validade_dt = datetime.strptime(data_input, "%Y-%m-%d") 
+        except ValueError:
+            print("Erro: formato de data invalido, use AAAA-MM-DD.")
+            continue
+
+        if novo_item in estoque:
+                estoque[novo_item]["quantidade"] += qtd_input
+                estoque[novo_item]["validade"] = validade_dt
+                print(f"{novo_item.upper()} atualizado com sucesso!")
+        else:
+            estoque[novo_item] = {"quantidade": qtd_input, "validade": validade_dt}
+            print(f"{novo_item.upper()} cadastrado com sucesso!")
+
+        
+    #opção 3 venda prato (baixa) gazola
+    if opcao == "3":
+        print("\n--- PROCESSANDO VENDA: PRATO FEITO ---")
+
+        pode_vender = True
+        faltando = []
+
+        for ingrediente, qtd_necessaria in ingredientes_pf.items():
+            if ingrediente not in estoque or estoque[ingrediente]["quantidade"] < qtd_necessaria:
+                pode_vender = False
+                faltando.append(ingrediente.upper())
+
+        if not pode_vender:
+            print("VENDA RECUSADA: Estoque insuficiente para a receita do PF")
+            print(f"Faltando no estoque:", *faltando)
+        else:
+            for ingrediente, qnt_neces in ingredientes_pf.items():
+                estoque[ingrediente]["quantidade"] -= qtd_necessaria
+            print("VENDA REALIZADA! Baixa de 200g de Arroz e 100g de Feijão aplicada.")
+
+    #opção 4 saida
+
+        if opcao == "4":
+            print("\nSaindo do StockFlow.")
+            break
+        else:
+            print("opção invalida! Escolha de um numero de 1 a ")
+            
+
+
+
+    
+
+
+
+    
+
