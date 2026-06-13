@@ -97,7 +97,3 @@ O usuário principal é o operador do estoque ou gerente do restaurante. Possui 
 * **RN02 - Intervalo do Alerta de Perecíveis:** O critério temporal para disparo de alertas de atenção em destaque é restrito ao cálculo de:
 Data de Validade / Data Atual + 3 dias
 * **RN03 - Atendimento Prévio de Integridade:** Nenhuma baixa de estoque parcial deve ser efetuada se houver a falta de um dos itens. A verificação de suficiência de *todos* os ingredientes deve ocorrer antes de qualquer alteração de valores nos dicionários.
-
-
-
-## **pro**
