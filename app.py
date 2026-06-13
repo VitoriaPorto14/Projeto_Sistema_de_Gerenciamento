@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import os
 
 # --- 1. BANCO DE DADOS EM MEMÓRIA (Dicionários básicos) ---
 # Quantidades em gramas. Validades configuradas para o ano de 2026.
@@ -13,6 +14,9 @@ ingredientes_pf = {
     "arroz": 200,
     "feijao": 100
 }
+
+def limpar_tela():
+    os.system("cls" if os.name == "nt" else "clear")
 
 # --- 2. LOOP PRINCIPAL DO PROGRAMA (Menu no Terminal) ---
 while True:
@@ -60,18 +64,22 @@ while True:
             val = estoque[produto]["validade"].strftime("%d/%m/%Y")
             print(f"• {produto.capitalize()}: {qtd}g | Validade: {val}")
 
+        input("\nAperte ENTER para voltar ao menu...")
+
 
     #Opçao 2: cadastrar/ e atualizar produtos GAzolA AQUI
-    if opcao == "2":
+    elif opcao == "2":
         print("\n--- CADASTRO / ATUALIZAÇÂO DE ITEM ---")
-        novo_item = input("Nome do novo ingrediente: ").strip().lower()
+        novo_item = input("Nome do novo item: ").strip().lower()
         try:
             qtd_input = int(input("Quantidade (em gramas): "))
             if qtd_input < 0:
                 print("Error: A quantidade não pode ser negativa!")
+                input("\nAperte ENTER para voltar ao menu...")
                 continue
         except ValueError:
             print("Error: Digite um número inteiro válido para a quantidade.")
+            input("\nAperte ENTER para voltar ao menu...")
             continue
 
         data_input = input("Data de validade (AAAA-MM-DD): ").strip()
@@ -79,6 +87,7 @@ while True:
             validade_dt = datetime.strptime(data_input, "%Y-%m-%d") 
         except ValueError:
             print("Erro: formato de data invalido, use AAAA-MM-DD.")
+            input("\nAperte ENTER para voltar ao menu...")
             continue
 
         if novo_item in estoque:
@@ -89,9 +98,11 @@ while True:
             estoque[novo_item] = {"quantidade": qtd_input, "validade": validade_dt}
             print(f"{novo_item.upper()} cadastrado com sucesso!")
 
+        input("\nAperte ENTER para voltar ao menu...")
+
         
     #opção 3 venda prato (baixa) gazola
-    if opcao == "3":
+    elif opcao == "3":
         print("\n--- PROCESSANDO VENDA: PRATO FEITO ---")
 
         pode_vender = True
@@ -106,24 +117,18 @@ while True:
             print("VENDA RECUSADA: Estoque insuficiente para a receita do PF")
             print(f"Faltando no estoque:", *faltando)
         else:
-            for ingrediente, qnt_neces in ingredientes_pf.items():
+            for ingrediente, qtd_necessaria in ingredientes_pf.items():
                 estoque[ingrediente]["quantidade"] -= qtd_necessaria
             print("VENDA REALIZADA! Baixa de 200g de Arroz e 100g de Feijão aplicada.")
 
+        input("\nAperte ENTER para voltar ao menu...")
+
     #opção 4 saida
 
-        if opcao == "4":
-            print("\nSaindo do StockFlow.")
-            break
-        else:
-            print("opção invalida! Escolha de um numero de 1 a ")
-            
-
-
-
-    
-
-
-
-    
-
+    elif opcao == "4":
+        print("\nSaindo do STOCKFLOW.")
+        break
+    else:
+        print("opção invalida! Escolha de um numero de 1 a 4")
+        input("\nAperte ENTER para tentar novamente...")
+        
