@@ -4,8 +4,8 @@ import os
 # --- 1. BANCO DE DADOS EM MEMÓRIA (Dicionários básicos) ---
 # Aqui criamos o estoque inicial com nome do item, gramas e a data de validade.
 estoque = {
-    "arroz": {"quantidade": 1000, "validade": datetime.strptime("2026-06-20", "%Y-%m-%d")},
-    "feijao": {"quantidade": 500, "validade": datetime.strptime("2026-06-20", "%Y-%m-%d")}, # Vence em breve
+    "arroz": {"quantidade": 1000, "validade": datetime.strptime("2026-06-19", "%Y-%m-%d")},
+    "feijao": {"quantidade": 500, "validade": datetime.strptime("2026-06-19", "%Y-%m-%d")}, # Vence em breve
     "carne": {"quantidade": 2000, "validade": datetime.strptime("2026-06-20", "%Y-%m-%d")}
 }
 
@@ -75,7 +75,7 @@ while True:
         input("\nAperte ENTER para voltar ao menu...")
 
 
-    #Opçao 2: cadastrar/ e atualizar produtos GAzolA AQUI
+    #Opçao 2: cadastrar/ e atualizar produtos
     elif opcao == "2":
         print("\n--- CADASTRO / ATUALIZAÇÂO DE ITEM ---")
         novo_item = input("Nome do novo item: ").strip().lower()
@@ -115,7 +115,7 @@ while True:
         input("\nAperte ENTER para voltar ao menu...")
 
         
-    #opção 3 venda prato (baixa) gazola
+    #opção 3 venda prato (baixa) 
     elif opcao == "3":
         print("\n--- PROCESSANDO VENDA: PRATO FEITO ---")
 
