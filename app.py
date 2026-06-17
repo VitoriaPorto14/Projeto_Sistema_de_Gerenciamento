@@ -4,9 +4,9 @@ import os
 # --- 1. BANCO DE DADOS EM MEMÓRIA (Dicionários básicos) ---
 # Aqui criamos o estoque inicial com nome do item, gramas e a data de validade.
 estoque = {
-    "arroz": {"quantidade": 1000, "validade": datetime.strptime("2026-06-16", "%Y-%m-%d")},
-    "feijao": {"quantidade": 500, "validade": datetime.strptime("2026-06-16", "%Y-%m-%d")}, # Vence em breve
-    "carne": {"quantidade": 2000, "validade": datetime.strptime("2026-06-16", "%Y-%m-%d")}
+    "arroz": {"quantidade": 1000, "validade": datetime.strptime("2026-06-20", "%Y-%m-%d")},
+    "feijao": {"quantidade": 500, "validade": datetime.strptime("2026-06-20", "%Y-%m-%d")}, # Vence em breve
+    "carne": {"quantidade": 2000, "validade": datetime.strptime("2026-06-20", "%Y-%m-%d")}
 }
 
 # Aqui definimos a receita padrão do Prato Feito (quanto gasta de cada item)
